@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rate My Units API", "Rate My Units API.csproj", "{EA7C4758-4606-446C-8FFC-245E2B9BD4B7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EA7C4758-4606-446C-8FFC-245E2B9BD4B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA7C4758-4606-446C-8FFC-245E2B9BD4B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA7C4758-4606-446C-8FFC-245E2B9BD4B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA7C4758-4606-446C-8FFC-245E2B9BD4B7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
