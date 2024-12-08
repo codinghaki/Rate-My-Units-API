@@ -10,6 +10,4 @@ public class Unit
     
     // Outgoing relationships
     public List<Review> Reviews { get; set; }
-    
-    public List<ReviewRating> Ratings { get; set; }
 }
