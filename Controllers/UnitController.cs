@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Rate_My_Units_API.Context;
+using Rate_My_Units_API.Interfaces;
 using Rate_My_Units_API.Mappers;
 
 namespace Rate_My_Units_API.Controllers;
@@ -9,29 +10,27 @@ namespace Rate_My_Units_API.Controllers;
 [ApiController]
 public class UnitController : ControllerBase
 {
-    private readonly ApplicationDbContext _context;
+    private readonly IUnitService _unitService;
     
-    public UnitController(ApplicationDbContext context)
+    public UnitController(IUnitService unitService)
     {
-        this._context = context;
+        this._unitService = unitService;
     }
 
     [HttpGet]
     public async Task<IActionResult> GetAllUnits()
     {
-        var units = await _context.Units.ToListAsync();
+        var result = await _unitService.GetAllUnitsAsync();
         
-        var unitsDtos = units.Select(unit => unit.ToDto());
-        
-        return Ok(unitsDtos);
+        return Ok(result);
     }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetUnitById([FromRoute]int id)
     {
-        var unit = await _context.Units.FirstOrDefaultAsync(unit => unit.Id == id);
+        var result = await _unitService.GetUnitByIdAsync(id);
 
-        return Ok(unit.ToDto());
+        return Ok(result);
     }
     
 }
