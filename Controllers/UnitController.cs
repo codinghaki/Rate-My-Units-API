@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Rate_My_Units_API.Context;
+using Rate_My_Units_API.Mappers;
 
 namespace Rate_My_Units_API.Controllers;
 
@@ -17,7 +18,8 @@ public class UnitController : ControllerBase
     [HttpGet]
     public IActionResult GetAllUnits()
     {
-        var units = _context.Units.ToList();
+        var units = _context.Units.ToList()
+            .Select(unit => unit.ToDto());
         
         return Ok(units);
     }
@@ -27,7 +29,7 @@ public class UnitController : ControllerBase
     {
         var unit = _context.Units.FirstOrDefault(unit => unit.Id == id);
 
-        return Ok(unit);
+        return Ok(unit.ToDto());
     }
     
 }
