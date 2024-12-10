@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Rate_My_Units_API.Context;
 using Rate_My_Units_API.Mappers;
 
@@ -16,18 +17,19 @@ public class UnitController : ControllerBase
     }
 
     [HttpGet]
-    public IActionResult GetAllUnits()
+    public async Task<IActionResult> GetAllUnits()
     {
-        var units = _context.Units.ToList()
-            .Select(unit => unit.ToDto());
+        var units = await _context.Units.ToListAsync();
         
-        return Ok(units);
+        var unitsDtos = units.Select(unit => unit.ToDto());
+        
+        return Ok(unitsDtos);
     }
 
     [HttpGet("{id}")]
-    public IActionResult GetUnitById([FromRoute]int id)
+    public async Task<IActionResult> GetUnitById([FromRoute]int id)
     {
-        var unit = _context.Units.FirstOrDefault(unit => unit.Id == id);
+        var unit = await _context.Units.FirstOrDefaultAsync(unit => unit.Id == id);
 
         return Ok(unit.ToDto());
     }
