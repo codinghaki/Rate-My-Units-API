@@ -13,8 +13,4 @@ public class ApplicationDbContext : DbContext
     public DbSet<Unit> Units { get; set; }
     
     public DbSet<Review> Reviews { get; set; }
-    
-    public DbSet<ReviewRating> ReviewRatings { get; set; }
-    
-    public DbSet<ReviewHelpfulVote> ReviewHelpfulVotes { get; set; }
 }

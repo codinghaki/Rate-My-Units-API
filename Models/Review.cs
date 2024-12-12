@@ -10,10 +10,7 @@ public class Review
     
     public string Content { get; set; }
     
+    public int Score { get; set; }
+    
     public DateTime CreatedAt { get; set; } = DateTime.Now;
-    
-    // Outgoing relationships
-    public List<ReviewHelpfulVote> HelpfulVotes { get; set; }
-    
-    public ReviewRating? ReviewRating { get; set; }
 }
