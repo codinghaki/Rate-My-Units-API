@@ -30,4 +30,9 @@ public class UnitService : IUnitService
         
         return unit.ToDetailDto();
     }
+
+    public async Task<bool> UnitExistsAsync(int unitId)
+    {
+        return await _context.Units.AnyAsync(unit => unit.Id == unitId);
+    }
 }

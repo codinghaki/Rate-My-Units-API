@@ -5,7 +5,9 @@ namespace Rate_My_Units_API.Interfaces;
 
 public interface IUnitService
 {
-    Task<List<UnitDto>> GetAllUnitsAsync();
+    Task<List<UnitListDto>> GetAllUnitsAsync();
     
-    Task<UnitDto?> GetUnitByIdAsync(int unitId);
+    Task<UnitDetailDto?> GetUnitByIdAsync(int unitId);
+    
+    Task<bool> UnitExistsAsync(int unitId);
 }
