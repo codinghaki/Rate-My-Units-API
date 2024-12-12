@@ -47,5 +47,18 @@ public class ReviewController : ControllerBase
         
         return CreatedAtAction(nameof(GetReviewsByUnitId), new { unitId = unitId }, reviewModel.ToDto());
     }
+
+    [HttpDelete("{reviewId}")]
+    public async Task<IActionResult> DeleteReview([FromRoute] int reviewId)
+    {
+        var result = await _reviewService.DeleteReviewAsync(reviewId);
+
+        if (result == null)
+        {
+            return NotFound();
+        }
+        
+        return Ok(result);
+    }
     
 }

@@ -27,6 +27,22 @@ public class ReviewService : IReviewService
         return unitReviewsDtos;
     }
 
+    public async Task<ReviewDto?> DeleteReviewAsync(int reviewId)
+    {
+        var review = await _context.Reviews.FindAsync(reviewId);
+
+        if (review == null)
+        {
+            return null;
+        }
+        
+        _context.Reviews.Remove(review);
+        
+        await _context.SaveChangesAsync();
+        
+        return review.ToDto();
+    }
+
     public async Task<ReviewDto> CreateReviewAsync(Review review)
     {
         await _context.Reviews.AddAsync(review);

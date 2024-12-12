@@ -8,4 +8,6 @@ public interface IReviewService
     Task<List<ReviewDto?>> GetReviewsByUnitIdAsync(int unitId);
     
     Task<ReviewDto> CreateReviewAsync(Review review);
+
+    Task<ReviewDto?> DeleteReviewAsync(int reviewId);
 }
