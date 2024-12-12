@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Rate_My_Units_API.Context;
 using Rate_My_Units_API.Dtos.Unit;
+using Rate_My_Units_API.Helpers;
 using Rate_My_Units_API.Interfaces;
 using Rate_My_Units_API.Mappers;
 using Rate_My_Units_API.Models;
@@ -15,13 +16,18 @@ public class UnitService : IUnitService
     {
         _context = context;
     }
-    public async Task<List<UnitListDto>> GetAllUnitsAsync()
+    public async Task<List<UnitListDto>> GetAllUnitsAsync(UnitQueryObject unitQueryObject)
     {
-        var units = await _context.Units.ToListAsync();
+        var units = _context.Units.AsQueryable();
+
+        if (!string.IsNullOrEmpty(unitQueryObject.Code))
+        {
+            units = units.Where(x => x.Code.Contains(unitQueryObject.Code));
+        }
         
-        var unitsDtos = units.Select(unit => unit.ToListDto());
+        var unitsDtos = await units.Select(unit => unit.ToListDto()).ToListAsync();
         
-        return unitsDtos.ToList();
+        return unitsDtos;
     }
 
     public async Task<UnitDetailDto?> GetUnitByIdAsync(int unitId)

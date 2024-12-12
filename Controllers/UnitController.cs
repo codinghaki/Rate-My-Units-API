@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Rate_My_Units_API.Context;
+using Rate_My_Units_API.Helpers;
 using Rate_My_Units_API.Interfaces;
 using Rate_My_Units_API.Mappers;
 
@@ -18,9 +19,9 @@ public class UnitController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAllUnits()
+    public async Task<IActionResult> GetAllUnits([FromQuery] UnitQueryObject unitQueryObject)
     {
-        var result = await _unitService.GetAllUnitsAsync();
+        var result = await _unitService.GetAllUnitsAsync(unitQueryObject);
         
         return Ok(result);
     }
