@@ -24,9 +24,9 @@ public class UnitService : IUnitService
         return unitsDtos.ToList();
     }
 
-    public async Task<UnitDto?> GetUnitByIdAsync(int id)
+    public async Task<UnitDto?> GetUnitByIdAsync(int unitId)
     {
-        var unit = await _context.Units.FirstOrDefaultAsync(unit => unit.Id == id);
+        var unit = await _context.Units.FirstOrDefaultAsync(unit => unit.Id == unitId);
         
         return unit.ToDto();
     }

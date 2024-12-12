@@ -7,5 +7,5 @@ public interface IUnitService
 {
     Task<List<UnitDto>> GetAllUnitsAsync();
     
-    Task<UnitDto?> GetUnitByIdAsync(int id);
+    Task<UnitDto?> GetUnitByIdAsync(int unitId);
 }

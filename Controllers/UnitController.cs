@@ -6,7 +6,7 @@ using Rate_My_Units_API.Mappers;
 
 namespace Rate_My_Units_API.Controllers;
 
-[Route("api/unit")]
+[Route("api/units")]
 [ApiController]
 public class UnitController : ControllerBase
 {
@@ -25,10 +25,15 @@ public class UnitController : ControllerBase
         return Ok(result);
     }
 
-    [HttpGet("{id}")]
-    public async Task<IActionResult> GetUnitById([FromRoute]int id)
+    [HttpGet("{unitId}")]
+    public async Task<IActionResult> GetUnitById([FromRoute]int unitId)
     {
-        var result = await _unitService.GetUnitByIdAsync(id);
+        var result = await _unitService.GetUnitByIdAsync(unitId);
+
+        if (result == null)
+        {
+            return NotFound();
+        }
 
         return Ok(result);
     }
