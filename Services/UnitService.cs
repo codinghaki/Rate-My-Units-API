@@ -15,19 +15,19 @@ public class UnitService : IUnitService
     {
         _context = context;
     }
-    public async Task<List<UnitDto>> GetAllUnitsAsync()
+    public async Task<List<UnitListDto>> GetAllUnitsAsync()
     {
         var units = await _context.Units.ToListAsync();
         
-        var unitsDtos = units.Select(unit => unit.ToDto());
+        var unitsDtos = units.Select(unit => unit.ToListDto());
         
         return unitsDtos.ToList();
     }
 
-    public async Task<UnitDto?> GetUnitByIdAsync(int unitId)
+    public async Task<UnitDetailDto?> GetUnitByIdAsync(int unitId)
     {
-        var unit = await _context.Units.FirstOrDefaultAsync(unit => unit.Id == unitId);
+        var unit = await _context.Units.Include(entity => entity.Reviews).FirstOrDefaultAsync(unit => unit.Id == unitId);
         
-        return unit.ToDto();
+        return unit.ToDetailDto();
     }
 }

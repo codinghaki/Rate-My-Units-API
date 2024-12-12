@@ -5,8 +5,19 @@ namespace Rate_My_Units_API.Mappers;
 
 public static class UnitMapper
 {
-    public static UnitDto ToDto(this Unit unit)
+    public static UnitDetailDto ToDetailDto(this Unit unit)
     {
-        return new UnitDto(unit.Code, unit.Name);
+        return new UnitDetailDto(
+            unit.Code,
+            unit.Name,
+            unit.Reviews.Select(review => review.ToDto()).ToList());
+    }
+
+    public static UnitListDto ToListDto(this Unit unit)
+    {
+        return new UnitListDto(
+            unit.Code,
+            unit.Name
+        );
     }
 }
