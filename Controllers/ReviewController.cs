@@ -20,7 +20,7 @@ public class ReviewController : ControllerBase
         this._unitService = unitService;
     }
 
-    [HttpGet("{unitId}")]
+    [HttpGet("{unitId:int}")]
     public async Task<IActionResult> GetReviewsByUnitId([FromRoute]int unitId)
     {
         var result = await _reviewService.GetReviewsByUnitIdAsync(unitId);
@@ -33,7 +33,7 @@ public class ReviewController : ControllerBase
         return Ok(result);
     }
 
-    [HttpPost("{unitId}")]
+    [HttpPost("{unitId:int}")]
     public async Task<IActionResult> CreateReview([FromRoute] int unitId, CreateReviewDto createReviewDto)
     {
         if (!await _unitService.UnitExistsAsync(unitId))
@@ -48,7 +48,7 @@ public class ReviewController : ControllerBase
         return CreatedAtAction(nameof(GetReviewsByUnitId), new { unitId = unitId }, reviewModel.ToDto());
     }
 
-    [HttpDelete("{reviewId}")]
+    [HttpDelete("{reviewId:int}")]
     public async Task<IActionResult> DeleteReview([FromRoute] int reviewId)
     {
         var result = await _reviewService.DeleteReviewAsync(reviewId);

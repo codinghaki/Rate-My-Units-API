@@ -25,7 +25,7 @@ public class UnitController : ControllerBase
         return Ok(result);
     }
 
-    [HttpGet("{unitId}")]
+    [HttpGet("{unitId}:int")]
     public async Task<IActionResult> GetUnitById([FromRoute]int unitId)
     {
         var result = await _unitService.GetUnitByIdAsync(unitId);
