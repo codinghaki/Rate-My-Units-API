@@ -8,6 +8,7 @@ public static class ReviewMapper
     public static ReviewDto ToDto(this Review review)
     {
         return new ReviewDto(
+            review.Id,
             review.Content,
             review.Score,
             review.CreatedAt);

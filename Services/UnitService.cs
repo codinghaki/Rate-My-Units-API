@@ -25,7 +25,7 @@ public class UnitService : IUnitService
             units = units.Where(x => x.Code.Contains(unitQueryObject.Code));
         }
 
-        int skipNumber = (unitQueryObject.PageNumber) * unitQueryObject.PageSize;
+        int skipNumber = (unitQueryObject.PageNumber - 1) * unitQueryObject.PageSize;
         
         var unitsDtos = await units.Select(unit => unit.ToListDto()).Skip(skipNumber).Take(unitQueryObject.PageSize).ToListAsync();
         

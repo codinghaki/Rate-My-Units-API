@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 namespace Rate_My_Units_API.Dtos;
 
 public record ReviewDto(
+    int Id,
     [Required]
     [MinLength(5, ErrorMessage = "Content must be at least 5 characters")]
     [MaxLength(1000, ErrorMessage = "Content cannot exceed 1000 characters")]

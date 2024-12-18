@@ -8,6 +8,7 @@ public static class UnitMapper
     public static UnitDetailDto ToDetailDto(this Unit unit)
     {
         return new UnitDetailDto(
+            unit.Id,
             unit.Code,
             unit.Name,
             unit.Reviews.Select(review => review.ToDto()).ToList());
@@ -16,6 +17,7 @@ public static class UnitMapper
     public static UnitListDto ToListDto(this Unit unit)
     {
         return new UnitListDto(
+            unit.Id,
             unit.Code,
             unit.Name
         );
