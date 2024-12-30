@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Rate_My_Units_API.Dtos.Account;
+using Rate_My_Units_API.Interfaces;
 using Rate_My_Units_API.Models;
+using Rate_My_Units_API.Services;
 
 namespace Rate_My_Units_API.Controllers;
 
@@ -11,10 +13,12 @@ public class AccountController : ControllerBase
 {
     
     private readonly UserManager<AppUser> _userManager;
+    private readonly ITokenService _tokenService;
     
-    public AccountController(UserManager<AppUser> userManager)
+    public AccountController(UserManager<AppUser> userManager, ITokenService tokenService)
     {
         this._userManager = userManager;
+        this._tokenService = tokenService;
     }
 
     [HttpPost("register")]
@@ -43,7 +47,13 @@ public class AccountController : ControllerBase
 
                 if (roleResult.Succeeded)
                 {
-                    return Ok("User created");
+                    return Ok(
+                        new NewUserDto
+                        (
+                            appUser.UserName,
+                            registerDto.Email,
+                            _tokenService.CreateToken(appUser)
+                        ));
                 }
                 else
                 {
