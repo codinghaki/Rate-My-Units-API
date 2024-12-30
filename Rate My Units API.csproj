@@ -6,6 +6,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <RootNamespace>Rate_My_Units_API</RootNamespace>
       <UserSecretsId>04300f5d-53d1-4a01-b61b-f63929721ffc</UserSecretsId>
+      <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
     <ItemGroup>

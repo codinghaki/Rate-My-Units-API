@@ -25,6 +25,19 @@ builder.Services.AddControllers();
 builder.Services.AddScoped<IUnitService, UnitService>();
 builder.Services.AddScoped<IReviewService, ReviewService>();
 
+builder.Services.AddCors(options =>
+{
+    // Angular
+    options.AddPolicy("angularApp", policyBuilder =>
+    {
+        policyBuilder.WithOrigins("http://localhost:4200");
+        policyBuilder.AllowAnyHeader();
+        policyBuilder.AllowAnyMethod();
+        policyBuilder.AllowCredentials();
+    });
+});
+    
+    
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -37,5 +50,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.MapControllers();
+
+app.UseCors("angularApp");
 
 app.Run();
