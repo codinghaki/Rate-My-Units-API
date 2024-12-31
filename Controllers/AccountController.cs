@@ -1,3 +1,5 @@
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -22,6 +24,25 @@ public class AccountController : ControllerBase
         this._userManager = userManager;
         this._tokenService = tokenService;
         this._signInManager = signInManager;
+    }
+
+    [HttpGet]
+    [Authorize]
+    public async Task<IActionResult> GetUser()
+    {
+        var username = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.GivenName)?.Value;
+        if (username == null)
+        {
+            return Unauthorized();
+        }
+        var user = await _userManager.Users.FirstOrDefaultAsync(u => u.UserName == username);
+
+        if (user == null)
+        {
+            return NotFound("User not found");
+        }
+        
+        return Ok(new NewUserDto(user.UserName, user.Email, null));
     }
 
     [HttpPost("login")]
