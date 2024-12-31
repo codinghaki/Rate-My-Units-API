@@ -33,7 +33,7 @@ public class AccountController : ControllerBase
         var username = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.GivenName)?.Value;
         if (username == null)
         {
-            return Unauthorized();
+            return Unauthorized("Username invalid");
         }
         var user = await _userManager.Users.FirstOrDefaultAsync(u => u.UserName == username);
 
@@ -42,7 +42,10 @@ public class AccountController : ControllerBase
             return NotFound("User not found");
         }
         
-        return Ok(new NewUserDto(user.UserName, user.Email, null));
+        var authHeader = HttpContext.Request.Headers["Authorization"].ToString();
+        var token = authHeader.StartsWith("Bearer ") ? authHeader.Substring(7) : null;
+        
+        return Ok(new NewUserDto(user.UserName, user.Email, token));
     }
 
     [HttpPost("login")]
